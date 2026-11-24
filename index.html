@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جروبات واتساب</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: #f3f6f5;
+    color: #222;
+}
+
+header {
+    background: #128c55;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+}
+
+header p {
+    margin: 0;
+}
+
+.container {
+    max-width: 950px;
+    margin: 25px auto;
+    padding: 15px;
+}
+
+.form-box, .groups-box {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px #00000010;
+}
+
+h2 {
+    color: #128c55;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.submit-btn {
+    background: #128c55;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background: #087442;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.category-btn {
+    background: white;
+    color: #128c55;
+    border: 1px solid #128c55;
+}
+
+.category-btn.active {
+    background: #128c55;
+    color: white;
+}
+
+.group-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 15px 0;
+}
+
+.group-card h3 {
+    margin-top: 0;
+    color: #128c55;
+}
+
+.group-card p {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.join-btn {
+    display: inline-block;
+    background: #20b96b;
+    color: white;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.join-btn:hover {
+    background: #128c55;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    padding: 25px;
+}
+
+footer {
+    background: #128c55;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 35px;
+}
+
+#adultNotice {
+    display: none;
+    background: #fff5e5;
+    color: #8a5200;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.age-check {
+    display: none;
+    margin-top: 12px;
+}
+
+.age-check label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+}
+
+.age-check input {
+    width: auto;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📱 جروبات واتساب</h1>
+    <p>اكتشف جروبات واتساب وشارك جروبك مع الجميع</p>
+</header>
+
+<div class="container">
+
+    <section class="form-box">
+        <h2>➕ إضافة جروب جديد</h2>
+
+        <form id="groupForm">
+
+            <label>لينك الجروب</label>
+            <input
+                type="url"
+                id="groupLink"
+                placeholder="https://chat.whatsapp.com/..."
+                required
+            >
+
+            <label>وصف الجروب</label>
+            <textarea
+                id="groupDescription"
+                placeholder="اكتب وصف الجروب هنا..."
+                required
+            ></textarea>
+
+            <label>قسم الجروب</label>
+            <select id="groupCategory" required>
+                <option value="">اختر القسم</option>
+                <option value="chat">قسم الرغي - جروبات الدردشة</option>
+                <option value="adult">قسم للكبار فقط (+18)</option>
+                <option value="selling">جروبات البيع الإلكتروني</option>
+            </select>
+
+            <div id="adultNotice">
+                هذا القسم مخصص للبالغين فقط (+18).
+            </div>
+
+            <div class="age-check" id="ageCheck">
+                <label>
+                    <input type="checkbox" id="ageConfirm">
+                    أؤكد أن عمري 18 سنة أو أكثر.
+                </label>
+            </div>
+
+            <button class="submit-btn" type="submit">
+                إرسال الجروب
+            </button>
+
+        </form>
+    </section>
+
+    <section class="groups-box">
+
+        <h2>🌟 جروبات واتساب المتاحة</h2>
+
+        <div class="categories">
+            <button class="category-btn active" data-category="all">
+                الكل
+            </button>
+
+            <button class="category-btn" data-category="chat">
+                💬 الرغي
+            </button>
+
+            <button class="category-btn" data-category="adult">
+                🔞 للكبار فقط
+            </button>
+
+            <button class="category-btn" data-category="selling">
+                🛒 البيع الإلكتروني
+            </button>
+        </div>
+
+        <div id="publishedGroups">
+            <div class="empty">جاري تحميل الجروبات...</div>
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>جروبات واتساب © جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+
+const form = document.getElementById("groupForm");
+
+const linkInput = document.getElementById("groupLink");
+const descriptionInput = document.getElementById("groupDescription");
+const categoryInput = document.getElementById("groupCategory");
+
+const container = document.getElementById("publishedGroups");
+
+let currentCategory = "all";
+
+function getGroups() {
+    try {
+        return JSON.parse(
+            localStorage.getItem("whatsappGroups") || "[]"
+        );
+    } catch {
+        return [];
+    }
+}
+
+// إظهار تنبيه قسم الكبار
+categoryInput.addEventListener("change", function() {
+
+    const isAdult = this.value === "adult";
+
+    document.getElementById("adultNotice").style.display =
+        isAdult ? "block" : "none";
+
+    document.getElementById("ageCheck").style.display =
+        isAdult ? "block" : "none";
+
+    document.getElementById("ageConfirm").required = isAdult;
+
+});
+
+// إضافة جروب جديد
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const link = linkInput.value.trim();
+    const description = descriptionInput.value.trim();
+    const category = categoryInput.value;
+
+    let url;
+
+    try {
+        url = new URL(link);
+    } catch {
+        alert("من فضلك اكتب لينك صحيح.");
+        return;
+    }
+
+    if (
+        url.protocol !== "https:" ||
+        url.hostname !== "chat.whatsapp.com"
+    ) {
+        alert("من فضلك استخدم لينك دعوة جروب واتساب الصحيح.");
+        return;
+    }
+
+    if (category === "adult" &&
+        !document.getElementById("ageConfirm").checked) {
+        alert("يجب تأكيد أن عمرك 18 سنة أو أكثر.");
+        return;
+    }
+
+    const groups = getGroups();
+
+    groups.unshift({
+        link: link,
+        description: description,
+        category: category
+    });
+
+    localStorage.setItem(
+        "whatsappGroups",
+        JSON.stringify(groups)
+    );
+
+    alert("تمت إضافة الجروب بنجاح!");
+
+    form.reset();
+
+    document.getElementById("adultNotice").style.display = "none";
+    document.getElementById("ageCheck").style.display = "none";
+
+    showGroups();
+
+});
+
+// عرض الجروبات
+function showGroups() {
+
+    const groups = getGroups();
+
+    container.innerHTML = "";
+
+    const filteredGroups = groups.filter(group => {
+        return currentCategory === "all" ||
+               group.category === currentCategory;
+    });
+
+    if (filteredGroups.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">لا توجد جروبات في هذا القسم حاليًا.</div>';
+
+        return;
+    }
+
+    filteredGroups.forEach(group => {
+
+        const card = document.createElement("div");
+        card.className = "group-card";
+
+        const title = document.createElement("h3");
+
+        const categoryNames = {
+            chat: "💬 قسم الرغي",
+            adult: "🔞 للكبار فقط",
+            selling: "🛒 البيع الإلكتروني"
+        };
+
+        title.textContent =
+            categoryNames[group.category] || "جروب واتساب";
+
+        const description = document.createElement("p");
+        description.textContent = group.description;
+
+        const join = document.createElement("a");
+        join.className = "join-btn";
+        join.textContent = "انضم للجروب";
+
+        join.href = group.link;
+        join.target = "_blank";
+        join.rel = "noopener noreferrer";
+
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(join);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+// تغيير القسم
+document.querySelectorAll(".category-btn").forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        document.querySelectorAll(".category-btn")
+            .forEach(btn => btn.classList.remove("active"));
+
+        this.classList.add("active");
+
+        currentCategory = this.dataset.category;
+
+        showGroups();
+
+    });
+
+});
+
+// تشغيل عرض الجروبات عند فتح الموقع
+showGroups();
+
+</script>
+
+</body>
+</html>
